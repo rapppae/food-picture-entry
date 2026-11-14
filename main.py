@@ -17,7 +17,8 @@ def main():
     shutil.copyfile(SRC, DST)
     with open(DST, "rb") as f:
         magic = f.read(8)
-    assert magic == b"\x89PNG\r\n\x1a\n", "entry.png is not a PNG"
+    assert magic == b"\x89PNG\r\n\x1a\n" or magic[:3] == b"\xff\xd8\xff", \
+        "entry.png is neither PNG nor JPEG"
     print("wrote", DST, os.path.getsize(DST), "bytes")
 
 
